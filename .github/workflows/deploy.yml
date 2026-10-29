@@ -15,5 +15,12 @@ jobs:
               with:
                 creds: ${{ secrets.AZURE_CREDENTIALS }}
             
-            - run: az group list --output table
+            - run: |
+                az group create \
+                --name rg-actions-demo \
+                --location canadacentral
+
+                az deployment group create \
+                --resource-group rg-actions-demo \
+                --template-file infra/main.bicep
 
